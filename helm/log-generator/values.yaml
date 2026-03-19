@@ -1,0 +1,12 @@
+image:
+  repository: log-generator
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8080
+  nodePort: 30007
+
+replicaCount: 1
