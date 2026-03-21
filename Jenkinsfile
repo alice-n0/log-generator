@@ -64,7 +64,7 @@ pipeline {
         stage('Deploy helm') {
             steps {
                 sh """
-                helm upgrade --install ${SERVICE_NAME} ${HELM_CHART} \
+                helm upgrade --install ${SERVICE_CHOICE} ${HELM_CHART} \
                 --namespace ${NAMESPACE} \
                 -f ${VALUES_FILE} \
                 --set image.repository=${DOCKER_IMAGE} \
