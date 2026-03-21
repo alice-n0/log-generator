@@ -37,7 +37,7 @@ pipeline {
 
         stage('Gradle Build') {
             steps {
-                dir('backend') {
+                dir("${SERVICE_DIR}") {
                     sh '''
                     chmod +x gradlew
                     ./gradlew clean build
