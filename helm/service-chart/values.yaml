@@ -1,0 +1,30 @@
+name: default-service
+
+replicaCount: 1
+
+image:
+  repository: myrepo/default
+  tag: latest
+
+service:
+  port: 8080
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  cpu: 50
+
+env:
+  DB_HOST: my-postgresql
+  DB_PORT: "5432"
+  DB_NAME: userdb
+  DB_USER: admin
+
+database:
+  secretName: my-postgresql

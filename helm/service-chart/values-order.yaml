@@ -1,0 +1,17 @@
+name: order-service
+
+image:
+  repository: order-service
+  tag: latest
+
+env:
+  PAY_SERVICE_URL: http://pay-service:8080/api/pay
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydb
+  SPRING_DATASOURCE_USERNAME: myuser
+  SPRING_DATASOURCE_PASSWORD: mypass
+
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  cpu: 50
