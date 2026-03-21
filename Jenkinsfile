@@ -8,7 +8,7 @@ pipeline {
     parameters {
         choice(
             name: 'SERVICE',
-            choices: ['user-service', 'order-service', 'payment-service'],
+            choices: ['user-service', 'order-service', 'pay-service'],
             description: '배포할 서비스 선택'
         )
     }
