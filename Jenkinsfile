@@ -8,7 +8,7 @@ pipeline {
     parameters {
         choice(
             name: 'SERVICE',
-            choices: ['user-service', 'order-service', 'pay-service'],
+            choices: ['user', 'order', 'pay'],
             description: '배포할 서비스 선택'
         )
     }
@@ -17,12 +17,13 @@ pipeline {
         DOCKER_REPO = "hyeonjin5012"
         IMAGE_TAG = "latest"
 
-        SERVICE_NAME = "${params.SERVICE}"
+        SERVICE_CHOICE = "${params.SERVICE}"
+        SERVICE_NAME = "${SERVICE_CHOICE}-service"
         DOCKER_IMAGE = "${DOCKER_REPO}/${SERVICE_NAME}"
 
         SERVICE_DIR = "backend/${SERVICE_NAME}"
         HELM_CHART = "helm/service-chart"
-        VALUES_FILE = "helm/values-${SERVICE_NAME}.yaml"
+        VALUES_FILE = "helm/values-${SERVICE_CHOICE}.yaml"
 
         NAMESPACE = "observability-platform"
     }
