@@ -14,7 +14,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = "hyeonjin5012/log-generator"
+        DOCKER_REPO = "hyeonjin5012"
         IMAGE_TAG = "latest"
 
         SERVICE_NAME = "${params.SERVICE}"
@@ -71,13 +71,13 @@ pipeline {
                 """
             }
         }
-        post {
-            success {
-                echo "✅ ${SERVICE_NAME} 배포 성공"
-            }
-            failure {
-                echo "❌ ${SERVICE_NAME} 배포 실패"
-            }
+    }
+    post {
+        success {
+            echo "✅ ${SERVICE_NAME} 배포 성공"
+        }
+        failure {
+            echo "❌ ${SERVICE_NAME} 배포 실패"
         }
     }
 }
