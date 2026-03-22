@@ -5,6 +5,9 @@ image:
   tag: latest
 
 env:
-  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydb
-  SPRING_DATASOURCE_USERNAME: myuser
-  SPRING_DATASOURCE_PASSWORD: mypass
+  - name: SPRING_DATASOURCE_URL
+    value: jdbc:postgresql://my-postgresql:5432/paydb
+  - name: SPRING_DATASOURCE_USERNAME
+    value: payuser
+  - name: SPRING_DATASOURCE_PASSWORD
+    value: hyeonjin
