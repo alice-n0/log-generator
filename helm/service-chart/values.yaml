@@ -21,10 +21,8 @@ hpa:
   cpu: 50
 
 env:
-  DB_HOST: my-postgresql
-  DB_PORT: "5432"
-  DB_NAME: userdb
-  DB_USER: admin
+  MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: prometheus
+
 
 database:
   secretName: my-postgresql
