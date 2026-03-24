@@ -8,8 +8,9 @@ logging:
     root: INFO
 
 management:
+  server:
+    port: 8081
   endpoints:
     web:
-      base-path: /actuator
       exposure:
-        include: prometheus,health,info
+        include: prometheus
