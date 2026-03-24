@@ -20,12 +20,5 @@ hpa:
   maxReplicas: 3
   cpu: 50
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: prometheus
-
-
 database:
   secretName: my-postgresql
