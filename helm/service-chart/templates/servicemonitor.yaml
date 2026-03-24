@@ -3,9 +3,10 @@ kind: ServiceMonitor
 metadata:
   name: {{ .Values.name }}
   namespace: monitoring
+  namespaceSelector:
+    any: true   
   labels:
     release: monitoring
-    app.kubernetes.io/instance: monitoring
 spec:
   selector:
     matchLabels:
