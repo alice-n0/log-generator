@@ -4,6 +4,7 @@ metadata:
   name: {{ .Values.name }}
   labels:
     release: monitoring
+    app.kubernetes.io/instance: monitoring
 spec:
   selector:
     matchLabels:
