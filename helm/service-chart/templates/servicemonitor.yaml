@@ -2,12 +2,12 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ .Values.name }}
-  namespace: monitoring
-  namespaceSelector:
-    any: true   
+  namespace: monitoring 
   labels:
     release: monitoring
 spec:
+  namespaceSelector:
+    any: true  
   selector:
     matchLabels:
       app: {{ .Values.name }}
