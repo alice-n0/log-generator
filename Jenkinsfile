@@ -15,7 +15,7 @@ pipeline {
 
     environment {
         DOCKER_REPO = "hyeonjin5012"
-        IMAGE_TAG = "latest"
+        IMAGE_TAG = "${BUILD_NUMBER}"
 
         SERVICE_CHOICE = "${params.SERVICE}"
         SERVICE_NAME = "${SERVICE_CHOICE}-service"

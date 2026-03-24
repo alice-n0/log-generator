@@ -5,6 +5,7 @@ replicaCount: 1
 image:
   repository: myrepo/default
   tag: latest
+  pullPolicy: Always
 
 service:
   port: 8080
