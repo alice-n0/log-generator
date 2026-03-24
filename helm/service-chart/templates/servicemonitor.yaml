@@ -9,6 +9,6 @@ spec:
     matchLabels:
       app: {{ .Values.name }}
   endpoints:
-    - port: {{ .Values.service.portName }}
+    - port: {{ .Values.monitoring.port }}
       path: {{ .Values.monitoring.path }}
       interval: {{ .Values.monitoring.interval }}
