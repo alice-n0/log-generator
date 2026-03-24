@@ -7,6 +7,9 @@ image:
   tag: latest
   pullPolicy: Always
 
+deployment:
+  port: 8080
+
 service:
   ports:
     - name: http
@@ -20,7 +23,7 @@ monitoring:
   enabled: true
   port: metrics
   path: /actuator/prometheus
-  
+
 resources:
   limits:
     cpu: "500m"
