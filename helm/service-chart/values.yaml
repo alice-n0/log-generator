@@ -20,8 +20,11 @@ hpa:
   maxReplicas: 3
   cpu: 50
 
-env:
-  MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: prometheus
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
 
 
 database:
