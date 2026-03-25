@@ -1,6 +1,5 @@
 package com.hj.order_service.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -11,22 +10,20 @@ import java.time.Duration;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
-    @Value("${PAY_SERVICE_URL}")
-    private String payServiceUrl;
 
-    private final WebClient webClient;
+    private final WebClient payWebClient;
 
     public String createOrder(String userId) {
 
-        String result = webClient.get()
+        String result = payWebClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(payServiceUrl)
+                        .path("/api/pay")
                         .queryParam("userId", userId)
                         .build())
                 .retrieve()
                 .bodyToMono(String.class)
-                .timeout(Duration.ofSeconds(2)) // ⏱ timeout
-                .onErrorMap(e -> new RuntimeException("Payment API failed", e))
+                .timeout(Duration.ofMillis(2000))
+                .onErrorMap(e -> new RuntimeException("ERROR: Payment API failed", e))
                 .block();
 
         return "Order created for user " + userId + ", pay status: " + result;
