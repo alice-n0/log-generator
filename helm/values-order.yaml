@@ -5,9 +5,8 @@ image:
   tag: latest
 
 env:
-  PAY_SERVICE:
-    BASE_URL: http://pay-service:8080
-    TIMEOUT: 2000
+  PAY_SERVICE_BASE_URL: http://pay-service:8080
+  PAY_SERVICE_TIMEOUT: 2000
 
 hpa:
   enabled: true
