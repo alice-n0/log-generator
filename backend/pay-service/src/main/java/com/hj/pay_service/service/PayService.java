@@ -3,7 +3,6 @@ package com.hj.pay_service.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Random;
 
 import javax.sql.DataSource;
 
@@ -13,41 +12,58 @@ import com.hj.pay_service.exception.PayErrorCode;
 import com.hj.pay_service.exception.PayException;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PayService {
 
-    private final Random random = new Random();
     private final DataSource dataSource;
 
     public String processPay(String userId) {
+        log.info("pay service: "+userId);
 
-        // 1. 외부 API latency 시뮬레이션
-        if (random.nextInt(100) < 20) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // 중요
-                throw new PayException(PayErrorCode.INTERRUPTED, e);
-            }
-        }
+        switch (userId) {
 
-        // 2. DB slow query
-        if (random.nextInt(100) < 10) {
-            try (Connection conn = dataSource.getConnection();
-                    PreparedStatement ps = conn.prepareStatement("SELECT pg_sleep(2)")) {
-                ps.execute();
-            } catch (SQLException e) {
-                throw new PayException(PayErrorCode.DB_ERROR, e);
-            }
-        }
+            case "slow":
+                sleep(2000);
+                break;
 
-        // 3. 일부 실패
-        if (random.nextInt(100) < 5) {
-            throw new PayException(PayErrorCode.PAYMENT_FAILED);
+            case "db":
+                slowDb();
+                break;
+
+            case "fail":
+                throw new PayException(PayErrorCode.PAYMENT_FAILED);
+
+            case "db_slow":
+                sleep(1000);
+                slowDb();
+                break;
+
+            default:
+                // normal
         }
 
         return "Payment success";
+    }
+
+    private void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new PayException(PayErrorCode.INTERRUPTED, e);
+        }
+    }
+
+    private void slowDb() {
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement ps = conn.prepareStatement("SELECT pg_sleep(2)")) {
+            ps.execute();
+        } catch (SQLException e) {
+            throw new PayException(PayErrorCode.DB_ERROR, e);
+        }
     }
 }
