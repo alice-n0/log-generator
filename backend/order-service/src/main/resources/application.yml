@@ -15,8 +15,11 @@ management:
       exposure:
         include: prometheus
   metrics:
+    enable:
+        http.client.requests: true 
     distribution:
       percentiles-histogram:
+        http.client.requests: true
         http.server.requests: true
 
 pay:
