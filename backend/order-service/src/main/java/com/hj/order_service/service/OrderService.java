@@ -24,6 +24,7 @@ public class OrderService {
                             .path("/api/pay")
                             .queryParam("userId", userId)
                             .build())
+                            .attribute("clientName", "pay-service")
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
