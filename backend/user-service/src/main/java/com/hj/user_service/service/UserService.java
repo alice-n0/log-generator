@@ -12,29 +12,37 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class UserService {
-      private final WebClient payWebClient;
 
-      public String createUser(String userId) {
+    private final WebClient orderWebClient;
 
-        if ("slow".equals(userId)) sleep(2000);
+    public String createUser(String userId) {
 
-        if ("error".equals(userId)) {
-            throw new RuntimeException("Intentional error");
+        log.info("User request userId={}", userId);
+
+        // 1️⃣ entry latency (옵션)
+        if ("slow".equals(userId)) {
+            sleep(2000);
         }
 
-        // 🔥 핵심: 전체 흐름 연결
-        String orderResult = payWebClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/api/order")
-                        .queryParam("userId", userId)
-                        .build())
-                .retrieve()
-                .bodyToMono(String.class)
-                .timeout(Duration.ofSeconds(3))
-                .block();
+        try {
+            // 2️⃣ order-service 호출 (핵심)
+            String orderResult = orderWebClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/api/order")
+                            .queryParam("userId", userId)
+                            .build())
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .timeout(Duration.ofSeconds(3))
+                    .block();
 
-        return "User OK → " + orderResult;
-      }
+            return "User OK → " + orderResult;
+
+        } catch (Exception e) {
+            log.error("Order call failed userId={}", userId, e);
+            throw new RuntimeException("ERROR: Order API failed", e);
+        }
+    }
 
     private void sleep(long millis) {
         try {

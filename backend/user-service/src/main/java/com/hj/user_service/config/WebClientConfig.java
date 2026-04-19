@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WebClientConfig {
 
     @Bean
-    public WebClient payWebClient(WebClient.Builder builder,
+    public WebClient orderWebClient(WebClient.Builder builder,
                                  PayServiceProperties prop) {
         return builder
                 .baseUrl(prop.getBaseUrl())
