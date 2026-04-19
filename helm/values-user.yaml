@@ -3,3 +3,8 @@ name: user-service
 image:
   repository: user-service
   tag: latest
+
+env:
+  SPRING_DATASOURCE_URL: jdbc:postgresql://my-postgresql:5432/paydb
+  SPRING_DATASOURCE_USERNAME: payuser
+  SPRING_DATASOURCE_PASSWORD: hyeonjin

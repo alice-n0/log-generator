@@ -22,7 +22,10 @@ management:
 spring:
   datasource:
     hikari:
-      maximum-pool-size: 2
+      maximum-pool-size: 3          # 작게
+      minimum-idle: 2
+      connection-timeout: 1000      # 빨리 timeout
+      idle-timeout: 30000
 
 
   

@@ -18,3 +18,8 @@ management:
     distribution:
       percentiles-histogram:
         http.server.requests: true
+
+pay:
+  service:
+    base-url: ${PAY_SERVICE_BASE_URL}
+    timeout: ${PAY_SERVICE_TIMEOUT:2000}
