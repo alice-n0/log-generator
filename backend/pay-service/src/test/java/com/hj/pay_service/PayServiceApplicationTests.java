@@ -7,14 +7,14 @@ import javax.sql.DataSource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.hj.pay_service.service.PayService;
 
 @SpringBootTest
 class PayServiceApplicationTests {
 
-	@MockitoBean
+	@MockBean
     private DataSource dataSource; 
 	
 	@Autowired

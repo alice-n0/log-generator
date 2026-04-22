@@ -18,12 +18,6 @@ public class UserService {
     public String createUser(String userId) {
 
         log.info("User request userId={}", userId);
-
-        // 1️⃣ entry latency (옵션)
-        if ("slow".equals(userId)) {
-            sleep(2000);
-        }
-
         try {
             // 2️⃣ order-service 호출 (핵심)
             String orderResult = orderWebClient.get()

@@ -16,10 +16,6 @@ public class OrderService {
     private final WebClient payWebClient;
 
     public String createOrder(String userId) {
-        // 1️. Latency 시나리오
-        if ("slow".equals(userId)) {
-            sleep(3000);
-        }
 
         try {
             // 2. Payment 서비스 호출 (장애 전파 핵심)
